@@ -8,6 +8,8 @@
 
 # testing
 /coverage
+.babelrc.js
+.babel_
 
 # next.js
 /.next/
