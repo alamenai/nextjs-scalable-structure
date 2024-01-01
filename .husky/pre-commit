@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run linting and lint-staged checks
+npx lint-staged
+
+# ANSI color codes for formatting
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# Check the exit status of the previous command
+if [ $? -ne 0 ]; then
+  echo "${RED}Linting failed. Aborting commit.${NC}"
+  exit 1
+fi
+
+
+
+# Run Jest tests
+npm run test
+
+# Check the exit status of the previous command
+if [ $? -ne 0 ]; then
+  echo "${RED}Testing failed. Aborting commit.${NC}"
+  exit 1
+fi
+
+# Run Cypress tests without opening the launchpad
+npm run cypress-run-component
